@@ -1,0 +1,41 @@
+version: '3'
+services:
+    app-nginx:
+        build:
+            context: ./app/docker/development
+            dockerfile: nginx.docker
+        volumes:
+            - ./app:/app
+        depends_on:
+            - app-php-fpm
+        ports:
+            - "8080:80"
+    app-php-fpm:
+        build:
+            context: ./app/docker/development
+            dockerfile: php-fpm.docker
+        volumes:
+            - ./app:/app
+    app-php-cli:
+        build:
+            context: ./app/docker/development
+            dockerfile: php-cli.docker
+        volumes:
+            - ./app:/app
+            - composer:/root/.composer/cache
+    app-mysql:
+        image: mysql:5.7
+        restart: always
+        ports:
+            - "33062:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: demo-db
+            MYSQL_USER: app
+            MYSQL_PASSWORD: 123
+        volumes:
+            - app-mysql:/var/lib/mysql
+
+volumes:
+    app-mysql:
+    composer:

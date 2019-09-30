@@ -1,0 +1,233 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Shop API",
+        "description": "HTTP JSON API",
+        "version": "1.0.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/cinema/api",
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json",
+        "application/xml",
+        "application/x-www-form-urlencoded"
+    ],
+    "produces": [
+        "application/json",
+        "application/xml"
+    ],
+    "paths": {
+        "/cart": {
+            "get": {
+                "tags": [
+                    "Cart"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "schema": {
+                            "$ref": "#/definitions/Cart"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": [],
+                        "OAuth2": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Cart"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Success response"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": [],
+                        "OAuth2": []
+                    }
+                ]
+            }
+        },
+        "/cart/{ticketId}": {
+            "post": {
+                "tags": [
+                    "Cart"
+                ],
+                "parameters": [
+                    {
+                        "name": "ticketId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Success response"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": [],
+                        "OAuth2": []
+                    }
+                ]
+            }
+        },
+        "/cart/{id}": {
+            "delete": {
+                "tags": [
+                    "Cart"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Success response"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": [],
+                        "OAuth2": []
+                    }
+                ]
+            }
+        },
+        "/": {
+            "get": {
+                "tags": [
+                    "Info"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "API version",
+                        "schema": {
+                            "properties": {
+                                "version": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "ErrorModel": {
+            "required": [
+                "code",
+                "message"
+            ],
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "message": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Cart": {
+            "properties": {
+                "amount": {
+                    "type": "integer"
+                },
+                "cost": {
+                    "type": "integer"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "cost": {
+                                "type": "integer"
+                            },
+                            "ticket": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer"
+                                    },
+                                    "film": {
+                                        "type": "string"
+                                    },
+                                    "date": {
+                                        "type": "string"
+                                    },
+                                    "raw": {
+                                        "type": "string"
+                                    },
+                                    "number": {
+                                        "type": "string"
+                                    },
+                                    "_links": {
+                                        "properties": {
+                                            "film": {
+                                                "properties": {
+                                                    "href": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "_links": {
+                    "properties": {
+                        "checkout": {
+                            "properties": {
+                                "href": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "securityDefinitions": {
+        "OAuth2": {
+            "type": "oauth2",
+            "flow": "password",
+            "tokenUrl": "http://localhost:8080/cinema/api/oauth2/token"
+        },
+        "Bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
+}

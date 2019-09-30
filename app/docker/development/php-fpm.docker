@@ -1,0 +1,42 @@
+FROM php:7.2-fpm
+
+RUN apt-get update && apt-get install -y libpq-dev \
+    imagemagick \
+    g++ \
+    git \
+    curl \
+    imagemagick \
+    libcurl3-dev \
+    libicu-dev \
+    libfreetype6-dev \
+    libjpeg-dev \
+    libjpeg62-turbo-dev \
+    libmagickwand-dev \
+    libpq-dev \
+    libpng-dev \
+    libxml2-dev \
+    libzip-dev \
+    zlib1g-dev \
+    mysql-client \
+    openssh-client \
+    nano \
+    unzip \
+    libcurl4-openssl-dev \
+    libssl-dev \
+    && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
+    && docker-php-ext-install \
+            soap \
+            zip \
+            curl \
+            bcmath \
+            exif \
+            gd \
+            iconv \
+            intl \
+            mbstring \
+            opcache \
+            pdo_mysql \
+            pdo_pgsql
+
+
+WORKDIR /app
