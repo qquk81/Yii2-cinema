@@ -24,7 +24,7 @@ class m190926_162810_create_films_table extends Migration
             'description' => $this->text()
         ], $tableOptions);
 
-        $this->db->createCommand("INSERT INTO `demo-db`.films (id, name, description) VALUES (1, '1', 'Joker')")->execute();
+        $this->db->createCommand("INSERT INTO `demo-db`.films (id, name, description) VALUES (1, 'Joker', 'Joker')")->execute();
     }
 
     /**
