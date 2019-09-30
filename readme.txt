@@ -15,3 +15,11 @@ http://localhost:8080/cinema/api/docs/index.html
 
 user - admin
 password - 111111
+
+        'db' => [
+            'class' => 'yii\db\Connection',
+            'dsn' => 'mysql:host=app-mysql;port=3306;dbname=demo-db',
+            'username' => 'app',
+            'password' => '123',
+            'charset' => 'utf8',
+        ],
